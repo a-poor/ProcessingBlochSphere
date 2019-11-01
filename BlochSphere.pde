@@ -1,9 +1,16 @@
+/* BlockSphere.pde
+ * created by Austin Poor 
+ */
+
+
+// Note: Replace hard-coded screen-size-based
+// translations with some varriable translations
+// and/or sizes
 
 
 class BlochSphere {
   // The traditional representations
   //float p1, m1, p2, m2;
-  
   
   private float relative_phase, theta;
   private float phase_delta, theta_delta;
@@ -58,12 +65,14 @@ class BlochSphere {
       0,-250,0
     );
     // Tip of the arrow
-    push();
     fill(100,200,100);
     noStroke();
     translate(0,-250,0);
     sphere(5);
     pop();
+    
+    // Draw the Qubit's real representation
+    push();
     
     pop();
     

@@ -10,14 +10,8 @@ void setup() {
 void draw() {
   background(50);
   sph.show();
-}
-
-void mouseDragged() {
   
-}
-
-void keyPressed() {
-  if (key == CODED) {
+  if (keyPressed && key == CODED) {
     if (keyCode == UP) {
       sph.thetaDown();
     } else if (keyCode == DOWN) {
@@ -28,5 +22,9 @@ void keyPressed() {
       sph.phaseDown();
     }
   }
-  
+}
+
+void mouseDragged() {
+  // Add code here to make the sphere
+  // draggable...
 }
