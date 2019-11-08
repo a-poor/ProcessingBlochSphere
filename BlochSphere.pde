@@ -20,6 +20,11 @@ class BlochSphere {
   
   private float phase_cycle = TWO_PI;
   
+  private String str_theta = "θ";
+  private String str_phi   = "Φ";
+  private String str_psi   = "Ψ";
+  
+  
   BlochSphere() {
     relative_phase = 0;
     theta = 0;
@@ -71,11 +76,27 @@ class BlochSphere {
     sphere(5);
     pop();
     
-    // Draw the Qubit's real representation
     push();
+    textAlign(CENTER,CENTER);
+    fill(255);
+    textSize(20);
+    float c1 = cos(theta/2);
+    float c2_real = sin(theta/2);
+    String braket_rep = "|Ψ> = "+c1+"|0> + "+c2_real+"e^("+relative_phase+"i)|1>";
+    //String bloch_rep = "θ: " + theta + "\nΦ: " + relative_phase;
+    text(braket_rep, 0, width/2, -10);
+    pop();
     
     pop();
     
+    push();
+    textAlign(LEFT,CENTER);
+    fill(255);
+    textSize(20);
+    //textAlign(CENTER,CENTER);
+    //String bloch_rep = "|Ψ> = θ: " + theta + " Φ: " + relative_phase;
+    String bloch_rep = "θ: " + theta + "\nΦ: " + relative_phase;
+    text(bloch_rep, 20, 50, 0);
     pop();
   }
   
@@ -86,10 +107,18 @@ class BlochSphere {
      theta = max(theta-theta_delta, min_theta);
    }
    void phaseUp() {
-     relative_phase = (relative_phase + phase_delta) % phase_cycle;
+     float new_phase = (relative_phase + phase_delta);
+     while (new_phase < 0) {
+       new_phase += phase_cycle;
+     }
+     relative_phase = new_phase % phase_cycle;
    }
    void phaseDown() {
-     relative_phase = (relative_phase - phase_delta) % phase_cycle;
+     float new_phase = (relative_phase - phase_delta);
+     while (new_phase < 0) {
+       new_phase += phase_cycle;
+     }
+     relative_phase = new_phase % phase_cycle;
    }
    
    
