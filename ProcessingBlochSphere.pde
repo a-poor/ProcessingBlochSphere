@@ -17,6 +17,8 @@ int n_buttons = 110;
 void setup() {
   size(600, 600, P3D);
   sph = new BlochSphere();
+  
+  println(QBit.zero().strMP());
 }
 
 void draw() {
