@@ -10,7 +10,7 @@
 
 class BlochSphere {
   // The traditional representations
-  //float p1, m1, p2, m2;
+  public QBit state;
 
   private float relative_phase, theta;
   private float phase_delta, theta_delta;
@@ -23,9 +23,20 @@ class BlochSphere {
   //private String str_theta = "θ";
   //private String str_phi   = "Φ";
   //private String str_psi   = "Ψ";
+  
+  private Gate gHAD, gX, gY, gZ, gPhaseT, PhaseZ, gRootNot;
 
 
   BlochSphere() {
+    state = QBit.zero();
+    
+    gHAD = new Gate({
+      {new Complex(1/sqrt(2)), new Complex(1/sqrt(2))},
+      {new Complex(1/sqrt(2)), new Complex(-1/sqrt(2))}
+    });
+    
+    
+    // Old stuff...
     relative_phase = 0;
     theta = 0;
 
@@ -154,21 +165,15 @@ class BlochSphere {
 
   // Qubit Gates
   void setZero() {
-    set(0, 0);
+    state = QBit.zero();
   }
 
   void setOne() {
-    set(0, PI);
+    state = QBit.one();
   }
 
   void measure() {
-    if (random(1) < cos(theta/2)) {
-      setZero();
-      println("Measured |0>");
-    } else {
-      setOne();
-      println("Measured |1>");
-    }
+    state.measure(random(1));
   }
 
   void HAD() {

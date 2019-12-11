@@ -37,4 +37,10 @@ public static class QBit {
     else return 1.0;
   }
   
+  public QBit mult(float scalar) {
+    Complex new_c0 = new Complex(c0.mult(scalar));
+    Complex new_c1 = new Complex(c1.mult(scalar));
+    return new QBit(new_c0, new_c1);
+  }
+  
 }

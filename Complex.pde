@@ -7,6 +7,12 @@ public static class Complex {
     float b = m * sin(p);
     return new Complex(a, b);
   }
+  public static Complex zero() {
+    return new Complex(0);
+  }
+  public static Complex one() {
+    return new Complex(1);
+  }
   
   Complex(float a_, float b_) {
     a = a_;
