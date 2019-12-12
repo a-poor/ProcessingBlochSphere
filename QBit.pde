@@ -15,11 +15,21 @@ public static class QBit {
   //}
   
   QBit(Complex c0_, Complex c1_) {
+    // Store complex components
     c0 = c0_;
     c1 = c1_;
+    // Find the bloch coordinates
+    bloch_phase = Complex.mod(
+      c1.p - c0.p,
+      TWO_PI
+    );
+    bloch_theta = map(c1.magSq(),0,1,0,PI);
   }
   QBit(float a0, float b0, float a1, float b1) {
     this(new Complex(a0,b0), new Complex(a1,b1));
+  }
+  QBit() {
+    this(1.0,0.0,0.0,0.0);
   }
   
   public String strAB() {
@@ -38,9 +48,17 @@ public static class QBit {
   }
   
   public QBit mult(float scalar) {
-    Complex new_c0 = new Complex(c0.mult(scalar));
-    Complex new_c1 = new Complex(c1.mult(scalar));
+    Complex new_c0 = c0.scale(scalar);
+    Complex new_c1 = c1.scale(scalar);
     return new QBit(new_c0, new_c1);
+  }
+  
+  public QBit changeBlochPhase(float amount) {
+    return new QBit();
+  }
+  
+  public QBit changeBlochTheta(float amount) {
+    return new QBit();
   }
   
 }

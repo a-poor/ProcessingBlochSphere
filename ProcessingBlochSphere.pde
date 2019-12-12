@@ -13,29 +13,34 @@ float txty = y;
 
 int n_buttons = 110;
 
+float mod(float a, float b) {
+  while (a < 0) a += b;
+  return a % b;
+}
+
 
 void setup() {
   size(600, 600, P3D);
   sph = new BlochSphere();
   
-  println(QBit.zero().strMP());
+  println(sph.state.toString());
 }
 
 void draw() {
   background(50);
   sph.show();
 
-  if (keyPressed && key == CODED) {
-    if (keyCode == UP) {
-      sph.thetaDown();
-    } else if (keyCode == DOWN) {
-      sph.thetaUp();
-    } else if (keyCode == RIGHT) {
-      sph.phaseUp();
-    } else if (keyCode == LEFT) {
-      sph.phaseDown();
-    }
-  }
+  //if (keyPressed && key == CODED) {
+  //  if (keyCode == UP) {
+  //    sph.thetaDown();
+  //  } else if (keyCode == DOWN) {
+  //    sph.thetaUp();
+  //  } else if (keyCode == RIGHT) {
+  //    sph.phaseUp();
+  //  } else if (keyCode == LEFT) {
+  //    sph.phaseDown();
+  //  }
+  //}
 
 
   push();
@@ -79,7 +84,7 @@ void mouseClicked() {
       break;
     case 1:
       println("√NOT Gate");
-      sph.rootNot();
+      sph.rootNOT();
       break;
     case 2:
       println("S Gate");
@@ -117,4 +122,7 @@ void mouseClicked() {
       break;
     }
   }
+  println("New qubit: " + sph.state.toString());
+  println(sph.state.bloch_phase+" "+sph.state.bloch_theta);
+  println();
 }

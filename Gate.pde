@@ -40,8 +40,25 @@ public static class Gate {
     Complex c2 = new Complex(1,-1);
     Complex c3 = new Complex(1, 1);
     Complex[][] arr = {{c0,c1},{c2,c3}}; 
+    return (new Gate(arr)).mult(1.0/sqrt(2.0));
+  }
+  public static Gate PhaseT() {
+    Complex c0 = new Complex(1);
+    Complex c1 = new Complex(0);
+    Complex c2 = new Complex(0);
+    Complex c3 = Complex.fromMP(1,PI / 4);
+    Complex[][] arr = {{c0,c1},{c2,c3}}; 
     return (new Gate(arr)).mult(1.0/2.0);
   }
+  public static Gate PhaseS() {
+    Complex c0 = new Complex(1);
+    Complex c1 = new Complex(0);
+    Complex c2 = new Complex(0);
+    Complex c3 = Complex.fromMP(1,PI/2);
+    Complex[][] arr = {{c0,c1},{c2,c3}}; 
+    return (new Gate(arr)).mult(1.0/2.0);
+  }
+  
   
   
   int rows = 2;
@@ -52,7 +69,7 @@ public static class Gate {
     m = m_;
   }
   
-  QBit op(QBit z) {
+  QBit apply(QBit z) {
     // Compute the top
     Complex c0a = z.c0.mult(m[0][0]);
     Complex c0b = z.c1.mult(m[0][1]);
@@ -60,7 +77,7 @@ public static class Gate {
     // Compute the bottom
     Complex c1a = z.c0.mult(m[1][0]);
     Complex c1b = z.c1.mult(m[1][1]);
-    Complex c1 = c0a.add(c0b);
+    Complex c1 = c1a.add(c1b);
     // Return the new QBit
     return new QBit(c0,c1);
   }

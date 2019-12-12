@@ -14,6 +14,11 @@ public static class Complex {
     return new Complex(1);
   }
   
+  public static float mod(float a, float b) {
+    while (a < 0) a += b;
+    return a % b;
+  }
+  
   Complex(float a_, float b_) {
     a = a_;
     b = b_;
@@ -21,8 +26,7 @@ public static class Complex {
       a * a +
       b * b
     );
-    p = atan2(b, a);
-    if (p < 0) p += TWO_PI;
+    p = mod(atan2(b,a),TWO_PI);
   }
   Complex(float a) {
     this(a, 0.0);
