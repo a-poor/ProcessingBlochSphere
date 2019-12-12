@@ -42,9 +42,9 @@ public static class QBit {
     return strMP();
   }
   
-  public float measure(float rand) {
-    if (rand < c0.magSq()) return 0.0;
-    else return 1.0;
+  public QBit measure(float rand) {
+    if (rand < c0.magSq()) return QBit.zero();
+    else return QBit.one();
   }
   
   public QBit mult(float scalar) {

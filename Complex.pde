@@ -53,7 +53,7 @@ public static class Complex {
   Complex mult(Complex other) {
     return new Complex(
       a*other.a - b*other.b,
-      a*other.a + b*other.b
+      a*other.b + b*other.a
     );
   }
   Complex div(Complex other) {

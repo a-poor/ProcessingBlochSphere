@@ -91,4 +91,9 @@ public static class Gate {
     return new Gate(arr);
   }
   
+  public String toString() {
+    return "[[ "+m[0][0].strAB()+" "+m[0][1].strAB()+" ]\n" +
+      " [ "+m[1][0].strAB()+" "+m[1][1].strAB()+" ]]";
+  }
+  
 }

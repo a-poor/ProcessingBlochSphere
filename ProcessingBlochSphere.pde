@@ -23,7 +23,14 @@ void setup() {
   size(600, 600, P3D);
   sph = new BlochSphere();
   
-  println(sph.state.toString());
+  //println(sph.state.strAB());
+  
+  //Complex c = new Complex(1/sqrt(2),1/sqrt(2));
+  //println(c.strAB());
+  //Complex csq = c.mult(c);
+  //println(csq.strAB());
+  
+  println(sph.gHAD.toString());
 }
 
 void draw() {
@@ -122,7 +129,9 @@ void mouseClicked() {
       break;
     }
   }
-  println("New qubit: " + sph.state.toString());
+  println("New qubit: " + sph.state.strAB());
+  println("0: " + sph.state.c0.m + "  1: " + sph.state.c1.m);
+  println("0: " + sph.state.c0.magSq() + "  1: " + sph.state.c1.magSq());
   println(sph.state.bloch_phase+" "+sph.state.bloch_theta);
   println();
 }

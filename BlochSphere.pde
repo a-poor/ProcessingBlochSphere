@@ -179,7 +179,7 @@ class BlochSphere {
   }
 
   void measure() {
-    state.measure(random(1));
+    state = state.measure(random(1));
   }
 
   void HAD() {
