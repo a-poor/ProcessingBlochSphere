@@ -30,7 +30,18 @@ void setup() {
   //Complex csq = c.mult(c);
   //println(csq.strAB());
   
+  println("HAD");
   println(sph.gHAD.toString());
+  println("X");
+  println(sph.gX.toString());
+  println("Y");
+  println(sph.gY.toString());
+  println("Z");
+  println(sph.gZ.toString());
+  println("PhaseT");
+  println(sph.gPhaseT.toString());
+  println("PhaseS");
+  println(sph.gPhaseS.toString());
 }
 
 void draw() {

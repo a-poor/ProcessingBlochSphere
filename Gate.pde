@@ -48,7 +48,7 @@ public static class Gate {
     Complex c2 = new Complex(0);
     Complex c3 = Complex.fromMP(1,PI / 4);
     Complex[][] arr = {{c0,c1},{c2,c3}}; 
-    return (new Gate(arr)).mult(1.0/2.0);
+    return (new Gate(arr));
   }
   public static Gate PhaseS() {
     Complex c0 = new Complex(1);
@@ -56,7 +56,7 @@ public static class Gate {
     Complex c2 = new Complex(0);
     Complex c3 = Complex.fromMP(1,PI/2);
     Complex[][] arr = {{c0,c1},{c2,c3}}; 
-    return (new Gate(arr)).mult(1.0/2.0);
+    return (new Gate(arr));
   }
   
   
