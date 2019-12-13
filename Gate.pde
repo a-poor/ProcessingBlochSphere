@@ -40,7 +40,7 @@ public static class Gate {
     Complex c2 = new Complex(1,-1);
     Complex c3 = new Complex(1, 1);
     Complex[][] arr = {{c0,c1},{c2,c3}}; 
-    return (new Gate(arr)).mult(1.0/sqrt(2.0));
+    return (new Gate(arr)).mult(1.0/2.0);
   }
   public static Gate PhaseT() {
     Complex c0 = new Complex(1);

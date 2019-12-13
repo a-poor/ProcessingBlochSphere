@@ -19,19 +19,6 @@ float mod(float a, float b) {
 void setup() {
   size(600, 600, P3D);
   sph = new BlochSphere();
-  
-  println("HAD");
-  println(sph.gHAD.toString());
-  println("X");
-  println(sph.gX.toString());
-  println("Y");
-  println(sph.gY.toString());
-  println("Z");
-  println(sph.gZ.toString());
-  println("PhaseT");
-  println(sph.gPhaseT.toString());
-  println("PhaseS");
-  println(sph.gPhaseS.toString());
 }
 
 void draw() {
