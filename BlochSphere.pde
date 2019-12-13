@@ -75,34 +75,25 @@ class BlochSphere {
     push();
     noFill();
     stroke(255,100,100);
-    //float r = map(
-    //  state.bloch_theta,
-    //  0,PI,
-    //  0,500
-    //);
-    //rotateZ(PI/2);
-    //rotateY(PI/2);
-    //float r = sin(state.bloch_theta);
-    //float r = sqrt(1 - abs(state.bloch_theta*state.bloch_theta - PI/2));
-    //r = map(r,0,1,0,500);
-    //float y = abs(abs(state.bloch_theta/(PI/2) - 1) - 1);
-    //float x = sqrt(1 - (y*y));
-    //float r = y * 500;
     
-    float y = map(state.bloch_theta,0,PI,-1,1);
-    float x = sqrt(1 - (y*y));
-    float r = x * 500;
+    float r = 250;
+    float x, y;
+    float t = state.bloch_theta;
     
-    println("Theta: "+state.bloch_theta);
-    println("Y: "+y);
-    println("X: "+x);
-    println("Radius: "+r);
-    println();
+    if (t < PI/2) {
+      x = sin(t) * r;
+      y = -cos(t) * r;
+    } else if (t > PI/2) {
+      x = sin(PI - t) * r;
+      y = cos(PI - t) * r;
+    } else {
+      x = r;
+      y = 0;
+    }
     
-    translate(0,250*y,0);
+    translate(0,y,0);
     rotateX(PI/2);
-    //ellipse(0,0,500,500);
-    ellipse(0,0,r,r);
+    ellipse(0,0,x*2,x*2);
     pop();
 
     push();
@@ -110,7 +101,6 @@ class BlochSphere {
     fill(255);
     textSize(20);
     String braket_rep = "|Ψ> = "+state.strAB();
-    //String bloch_rep = "θ: " + theta + "\nΦ: " + state.bloch_phase;
     text(braket_rep, 0, width/2+40, -10);
     pop();
 

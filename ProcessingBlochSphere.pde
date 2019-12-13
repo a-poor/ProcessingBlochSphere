@@ -1,9 +1,6 @@
 
 BlochSphere sph;
 
-//float lastX = 0;
-//float lastY = 0;
-
 float pad = 5;
 float w = 30;
 float h = w;
