@@ -2,27 +2,10 @@
  * created by Austin Poor 
  */
 
-
-// Note: Replace hard-coded screen-size-based
-// translations with some varriable translations
-// and/or sizes
-
-
 class BlochSphere {
-  // The traditional representations
   public QBit state;
-
-  //private float state.bloch_phase, theta;
+  
   private float phase_delta, theta_delta;
-
-  private float min_theta = 0;
-  private float max_theta = PI;
-
-  private float phase_cycle = TWO_PI;
-
-  //private String str_theta = "θ";
-  //private String str_phi   = "Φ";
-  //private String str_psi   = "Ψ";
   
   private Gate gHAD, gX, gY, gZ, gPhaseT, gPhaseS, gRootNOT;
 
@@ -30,10 +13,6 @@ class BlochSphere {
   BlochSphere() {
     // Create the state qubit
     state = QBit.zero();
-    
-    // Create the bloch sphere coordinates
-    //state.bloch_phase = state.bloch_phase;
-    //theta = state.bloch_theta;
     
     // Create the gates
     gHAD = Gate.HAD();
@@ -44,44 +23,9 @@ class BlochSphere {
     gPhaseS = Gate.PhaseS();
     gRootNOT = Gate.RootNOT();
     
-    
-    // Old stuff...
-    //state.bloch_phase = 0;
-    //theta = 0;
     phase_delta = 0.05;
     theta_delta = 0.05;
   }
-
-  //void setMP(float mag0, float phase0, float mag1, float phase1) {
-  //  state.bloch_phase = abs(phase1 - phase0);
-  //  theta = map(mag0*mag0, 0, 1, PI, 0);
-  //  //theta = 2 * mag0; //cos(mag0 / 2);
-  //}
-
-  //void getMP(float c0[], float c1[]) {
-  //  c0[0] = cos(theta/2);
-  //  c0[1] = 0;
-  //  c1[0] = sin(theta/2);
-  //  c1[1] = state.bloch_phase;
-  //}
-
-  //void setAB(float a0, float b0, float a1, float b1) {
-  //  float m0 = sqrt(a0*a0 + b0*b0);
-  //  float p0 = atan2(a0, b0);
-  //  float m1 = sqrt(a1*a1 + b1*b1);
-  //  float p1 = atan2(a1, b1);
-  //  setMP(m0, p0, m1, p1);
-  //}
-
-  //void getAB(float ab0[], float ab1[]) {
-  //  float mp0[] = new float[2];
-  //  float mp1[] = new float[2];
-  //  getMP(mp0,mp1);
-  //  ab0[0] = mp0[0] * cos(mp0[1]);
-  //  ab0[1] = mp0[0] * sin(mp0[1]);
-  //  ab1[0] = mp1[0] * cos(mp1[1]);
-  //  ab1[1] = mp1[0] * sin(mp1[1]);
-  //}
 
   void show() {
     push();
@@ -120,6 +64,46 @@ class BlochSphere {
     translate(0, -250, 0);
     sphere(5);
     pop();
+    
+    // Draw latitute and longitude circles
+    push();
+    rotateY(state.bloch_phase); // Relative phase
+    noFill();
+    stroke(255,100,100);
+    ellipse(0,0,500,500);
+    pop();
+    push();
+    noFill();
+    stroke(255,100,100);
+    //float r = map(
+    //  state.bloch_theta,
+    //  0,PI,
+    //  0,500
+    //);
+    //rotateZ(PI/2);
+    //rotateY(PI/2);
+    //float r = sin(state.bloch_theta);
+    //float r = sqrt(1 - abs(state.bloch_theta*state.bloch_theta - PI/2));
+    //r = map(r,0,1,0,500);
+    //float y = abs(abs(state.bloch_theta/(PI/2) - 1) - 1);
+    //float x = sqrt(1 - (y*y));
+    //float r = y * 500;
+    
+    float y = map(state.bloch_theta,0,PI,-1,1);
+    float x = sqrt(1 - (y*y));
+    float r = x * 500;
+    
+    println("Theta: "+state.bloch_theta);
+    println("Y: "+y);
+    println("X: "+x);
+    println("Radius: "+r);
+    println();
+    
+    translate(0,250*y,0);
+    rotateX(PI/2);
+    //ellipse(0,0,500,500);
+    ellipse(0,0,r,r);
+    pop();
 
     push();
     textAlign(CENTER, CENTER);
@@ -127,7 +111,7 @@ class BlochSphere {
     textSize(20);
     String braket_rep = "|Ψ> = "+state.strAB();
     //String bloch_rep = "θ: " + theta + "\nΦ: " + state.bloch_phase;
-    text(braket_rep, 0, width/2, -10);
+    text(braket_rep, 0, width/2+40, -10);
     pop();
 
     pop();
@@ -141,41 +125,33 @@ class BlochSphere {
     text(bloch_rep, 20, 50, 0);
     pop();
   }
-
-  //void thetaUp() {
-  //  theta =  min(theta+theta_delta, max_theta);
-  //}
-  //void thetaDown() {
-  //  theta = max(theta-theta_delta, min_theta);
-  //}
-  //void phaseUp() {
-  //  float new_phase = (state.bloch_phase + phase_delta);
-  //  while (new_phase < 0) {
-  //    new_phase += phase_cycle;
-  //  }
-  //  state.bloch_phase = new_phase % phase_cycle;
-  //}
-  //void phaseDown() {
-  //  float new_phase = (state.bloch_phase - phase_delta);
-  //  while (new_phase < 0) {
-  //    new_phase += phase_cycle;
-  //  }
-  //  state.bloch_phase = new_phase % phase_cycle;
-  //}
+  
+  void applyProbChange(float delta) {
+    state = state.changeBlochTheta(delta);
+  }
+  void thetaUp() {
+    applyProbChange(theta_delta);
+  }
+  void thetaDown() {
+    applyProbChange(-theta_delta);
+  }
+  void applyPhase(float delta) {
+    state = state.changeBlochPhase(delta);
+  }
+  void phaseUp() {
+    applyPhase(phase_delta);
+  }
+  void phaseDown() {
+    applyPhase(-phase_delta);
+  }
 
   // Qubit Gates
   void setZero() {
     state = QBit.zero();
-    //println("New qubit: " + state.toString());
-    //println(state.bloch_phase+" "+state.bloch_theta);
-    //println();
   }
 
   void setOne() {
     state = QBit.one();
-    //println("New qubit: " + state.toString());
-    //println(state.bloch_phase+" "+state.bloch_theta);
-    //println();
   }
 
   void measure() {

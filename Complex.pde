@@ -18,6 +18,9 @@ public static class Complex {
     while (a < 0) a += b;
     return a % b;
   }
+  public static float mod(float a) {
+    return mod(a,TWO_PI);
+  }
   
   Complex(float a_, float b_) {
     a = a_;

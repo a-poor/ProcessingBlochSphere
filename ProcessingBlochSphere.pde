@@ -23,13 +23,6 @@ void setup() {
   size(600, 600, P3D);
   sph = new BlochSphere();
   
-  //println(sph.state.strAB());
-  
-  //Complex c = new Complex(1/sqrt(2),1/sqrt(2));
-  //println(c.strAB());
-  //Complex csq = c.mult(c);
-  //println(csq.strAB());
-  
   println("HAD");
   println(sph.gHAD.toString());
   println("X");
@@ -48,17 +41,17 @@ void draw() {
   background(50);
   sph.show();
 
-  //if (keyPressed && key == CODED) {
-  //  if (keyCode == UP) {
-  //    sph.thetaDown();
-  //  } else if (keyCode == DOWN) {
-  //    sph.thetaUp();
-  //  } else if (keyCode == RIGHT) {
-  //    sph.phaseUp();
-  //  } else if (keyCode == LEFT) {
-  //    sph.phaseDown();
-  //  }
-  //}
+  if (keyPressed && key == CODED) {
+    if (keyCode == UP) {
+      sph.thetaUp();
+    } else if (keyCode == DOWN) {
+      sph.thetaDown();
+    } else if (keyCode == RIGHT) {
+      sph.phaseUp();
+    } else if (keyCode == LEFT) {
+      sph.phaseDown();
+    }
+  }
 
 
   push();
@@ -141,8 +134,5 @@ void mouseClicked() {
     }
   }
   println("New qubit: " + sph.state.strAB());
-  println("0: " + sph.state.c0.m + "  1: " + sph.state.c1.m);
-  println("0: " + sph.state.c0.magSq() + "  1: " + sph.state.c1.magSq());
-  println(sph.state.bloch_phase+" "+sph.state.bloch_theta);
   println();
 }

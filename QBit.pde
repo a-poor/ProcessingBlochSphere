@@ -54,11 +54,16 @@ public static class QBit {
   }
   
   public QBit changeBlochPhase(float amount) {
-    return new QBit();
+    return Gate.PhasePhi(Complex.mod(amount)).apply(this);
   }
   
   public QBit changeBlochTheta(float amount) {
-    return new QBit();
+    float new_c0_msq = c0.magSq() + amount;
+    float prob0 = sqrt(max(min(new_c0_msq,1),0));
+    float prob1 = sqrt(max(min(1-new_c0_msq,1),0));
+    Complex a = Complex.fromMP(prob0,c0.p);
+    Complex b = Complex.fromMP(prob1, c1.p);
+    return new QBit(a,b);
   }
   
 }
